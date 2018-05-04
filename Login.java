@@ -53,9 +53,9 @@ public class Login {
 
         driver.get("https://ets.mos.ru/ets-stage2/#/login");
         driver.findElement(By.id("login")).click();
-        driver.findElement(By.id("login")).sendKeys("1");
+        driver.findElement(By.id("login")).sendKeys("1ee");
         driver.findElement(By.id("password")).click();
-        driver.findElement(By.id("password")).sendKeys("1");
+        driver.findElement(By.id("password")).sendKeys("1eee");
         Common PresenceOfID = new Common(driver);
         Common PresenceOfClass = new Common(driver);
         Common EnableID = new Common(driver);

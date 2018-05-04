@@ -33,9 +33,9 @@ public class Common {
 
             driver.get("https://ets.mos.ru/ets-stage2/#/login");
             driver.findElement(By.id("login")).click();
-            driver.findElement(By.id("login")).sendKeys("1");
+            driver.findElement(By.id("login")).sendKeys("1233");
             driver.findElement(By.id("password")).click();
-            driver.findElement(By.id("password")).sendKeys("1");
+            driver.findElement(By.id("password")).sendKeys("1233");
             driver.findElement(By.id("submit")).click();
 
     }
