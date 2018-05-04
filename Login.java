@@ -155,68 +155,6 @@ public class Login {
                 System.out.println("lazha");
             else
                 System.out.println(dateStartInput);
-//
-//    Calendar cal = Calendar.getInstance();
-//    cal.add(Calendar.HOUR, +1);
-//    Date oneHourAhead = cal.getTime();
-//    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-//    String dateStr = sdf.format(oneHourAhead);
-
-//FixME ЛЮТАЯ ДИЧЬ!!!! Исправить!!!!
-//    char[] seq = dateStartInput.toCharArray();
-//    if(seq[11] == '2' && seq[12] == '3'){
-//        try {
-//            seq[11] = 0;
-//            seq[11] = 0;
-//            if(seq[1] == '9'){
-//                seq[1] ='0';
-//                if((seq[0] == 3 && seq[1] == 1) || (seq[0] == '2' && seq[3] == '0' && seq[4] == '2' )){
-//
-//                }
-//            }
-//            //todo доделать
-//
-//
-//        }catch (Exception e ){
-//            e.printStackTrace();
-//        }
-//    }else{
-//        try {
-//            char seq2[] = new String().toCharArray();
-//            seq2[0] = seq[11];
-//            seq2[1] = seq[12];
-//            Integer test =  (new Integer(seq2.toString()) + 1);
-//            char[] seq3 = test.toString().toCharArray();
-//            seq[11] = seq3[0];
-//            seq[12] = seq3[1];
-//        }catch (Exception e ){
-//            e.printStackTrace();
-//        }
-            //}
-
-//    dateStartInput = new String(seq);
-
-
-//    DateFormat df1 = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-//    Calendar cal2  = Calendar.getInstance();
-//
-//    cal2.setTime(df1.parse(dateStartInput));
-//    cal2.add(Calendar.HOUR_OF_DAY, 1);
-//    System.out.println(cal2);
-//    DateFormat PdateStartInput = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-//    System.out.println(PdateStartInput);
-
-
-//    String Ptarget = dateStartInput;
-//    DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
-//    Date ParsedDateStartInput =  df.parse(Ptarget);
-//    System.out.println(Ptarget);
-//
-//    String Ptarget2 = dateStartInput;
-//    Date Ptarget3 = DateUtils.parseDate(Ptarget2);
-//    System.out.println(Ptarget3);
-//    Date newDate =  new Date(ParsedDateStartInput.getTime() + HOUR);
-//    System.out.println(newDate);
 
 
             /**
