@@ -7,9 +7,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.http.client.utils.DateUtils;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -53,9 +51,9 @@ public class Login {
 
         driver.get("https://ets.mos.ru/ets-stage2/#/login");
         driver.findElement(By.id("login")).click();
-        driver.findElement(By.id("login")).sendKeys("1ee");
+        driver.findElement(By.id("login")).sendKeys("lublino_md");
         driver.findElement(By.id("password")).click();
-        driver.findElement(By.id("password")).sendKeys("1eee");
+        driver.findElement(By.id("password")).sendKeys("ets123");
         Common PresenceOfID = new Common(driver);
         Common PresenceOfClass = new Common(driver);
         Common EnableID = new Common(driver);
@@ -64,7 +62,7 @@ public class Login {
         //Вход в систему
         // Реестр ПЛ
 
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         PresenceOfID.WaitingForID("link-waybill-journal").click();
         PresenceOfClass.WaitingForClass("standard-row");
         PresenceOfID.WaitingForID("open-create-form").click();
@@ -113,11 +111,18 @@ public class Login {
             else
                 System.out.println(waybillsPlannedStartDate);
         //Задание - Элемент
-        //Thread.sleep(1000);
-        EnableID.IsElementAppear("municipal_facility_id");
-        PresenceOfID.WaitingForID("react-select-37--value").click();
-       // Thread.sleep(1000);
-        PresenceOfID.WaitingForID("19").click();
+
+//        EnableID.IsElementAppear("municipal_facility_id");
+
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebElement urnyElement = wait.until(ExpectedConditions.elementToBeClickable(By.id("react-select-37--value")));
+        urnyElement.click();
+        urnyElement.click();
+        WebDriverWait wait1 = new WebDriverWait(driver, 5);
+        WebElement element19 = wait1.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("19"))));
+
+        element19.click();
+
         //Создание маршрута
         Thread.sleep(2000);
         PresenceOfID.WaitingForID("create-route").click();
@@ -127,9 +132,9 @@ public class Login {
         PresenceOfID.WaitingForID("route-name").sendKeys("23");
         //Список выбранных ОДХ
         PresenceOfID.WaitingForID("react-select-45--value").click();
-        PresenceOfID.WaitingForID("10003397").click();
+        PresenceOfID.WaitingForID("347466").click();
         PresenceOfID.WaitingForID("react-select-45--value").click();
-        PresenceOfID.WaitingForID("10003392").click();
+        PresenceOfID.WaitingForID("634121").click();
         //Нажатие кнопки "Создать".
         PresenceOfID.WaitingForID("route-submit").click();
         //Отображается уведомление: "Данные успешно сохранены". - необходимо навешать айдишник на уведомление. Есть только текст и класс
@@ -180,8 +185,9 @@ public class Login {
 
 
              //ПЛ."Счетчик моточасов оборудования/Выезд из гаража, м/ч".
-            Thread.sleep(1000);
-            PresenceOfID.WaitingForID("motohours-equip-start").sendKeys("9000");
+          //  Thread.sleep(1000);
+            //PresenceOfID.WaitingForID("motohours-equip-start").clear();
+           // PresenceOfID.WaitingForID("motohours-equip-start").sendKeys("9000");
 
             //ПЛ."Выдать, л".
 
@@ -219,7 +225,7 @@ public class Login {
             //Нажатие кнопки Выдачи ПЛ.
             //Выгрузка формы 4ф
             PresenceOfID.WaitingForID("waybill-print-dropdown_save").click();
-            driver.findElement(By.linkText("Форма 4-П")).click();
+            driver.findElement(By.linkText("Форма 2 (грузовое ТС)")).click();
 //"Дата планируемого выезда должна быть больше фактической даты возвращения т.с. в предыдущем путевом листе."
 
 
