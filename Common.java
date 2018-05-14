@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,26 +21,20 @@ public class Common {
         this.driver = driver;
     }
 
-    public void setUp() throws Exception {
+    public void setUp(ChromeDriver driver) throws Exception {
 
-        System.setProperty("webdriver.chrome.driver","C:\\chromedriver\\chromedriver.exe");
-        driver = new ChromeDriver();
-        browserName = "Chrome";
-        browserVersion = "46";
-        System.out.println("Automated test run. We’re running on "+browserName+" "+browserVersion);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    }
 
-    public void testLogin() throws Exception {
+            //  ChromeOptions options = new ChromeOptions();
+            //driver = new ChromeDriver(options);
+            //driver.get("http://localhost:3000");
+            System.setProperty("webdriver.chrome.driver","C:\\chromedriver\\chromedriver.exe");
+            driver = new ChromeDriver();
+            browserName = "Chrome";
+            browserVersion = "46";
+            System.out.println("Automated test run. We’re running on "+browserName+" "+browserVersion);
+            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-            driver.get("https://ets.mos.ru/ets-stage2/#/login");
-            driver.findElement(By.id("login")).click();
-            driver.findElement(By.id("login")).sendKeys("1233");
-            driver.findElement(By.id("password")).click();
-            driver.findElement(By.id("password")).sendKeys("1233");
-            driver.findElement(By.id("submit")).click();
-
-    }
+        }
 
                          //Ждать до отображения элемента по ID
     public WebElement WaitingForID(String elementID) {
@@ -46,16 +42,32 @@ public class Common {
         WebElement WaitingForID = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(elementID)));
         return WaitingForID;
     }
-
+    //Ждать, когда элемент станет "кликабельным"
+    public WebElement IsElementClickable(String elementID) {
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebElement IsElementClickable = wait.until(ExpectedConditions.elementToBeClickable(By.id(elementID)));
+    return IsElementClickable;}
+    //Ждать, когда отобразиться элемент
+    public WebElement IsElementVisible(String elementID) {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement IsElementVisible = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id(elementID))));
+    return IsElementVisible;}
+    //Наличие класса
     public WebElement WaitingForClass(String elementsClass) {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         WebElement WaitingForClass = wait.until(ExpectedConditions.presenceOfElementLocated(By.className(elementsClass)));
         return WaitingForClass;
-
-
     }
-
-                        //Лист всех текстов из каждого элемента класса "error"11
+    //Вынуть числа
+    public Matcher GetNumbersFromText(String elementID) {
+    String MissionTitle = driver.findElement(By.id(elementID)).getText();
+    Pattern pat= Pattern.compile("[-]?[0-9]+(.[0-9]+)?");
+    Matcher matcher=pat.matcher(MissionTitle);
+            while (matcher.find()) {
+                System.out.println(matcher.group());
+            }
+    return matcher;}
+    //Лист всех текстов из каждого элемента класса "error"
     public List<String> getAllErrorsTextListed() throws Exception{
        List<WebElement> errorList = driver.findElements(By.className("error"));
 
@@ -65,35 +77,30 @@ public class Common {
             errorTextList.add(errorList.get(i).getText());
         return errorTextList;
     }
-
+    //Строку в номер
     public String StringToNumber(String missionNT){
         String str=missionNT;
         String numberOnly= str.replaceAll("[^0-9]", "");
         return numberOnly;
     }
 
-    public String getAllErrorsList(int error_number) throws Exception{
-       List<WebElement> errorList = driver.findElements(By.className("error"));
-
-
-//        String allerrorslist = "";
-//        for (int a = 0; a < errorList.size(); a++){
-//            System.out.println(errorList.get(a).getText());
-//            result = result.concat("|||||").concat(errorList.get(a).getText());
-//        }
-//        if (errorList.size() > 0) {
+//    public String getAllErrorsList(int error_number) throws Exception{
+//       List<WebElement> errorList = driver.findElements(By.className("error"));
 //
-//        }
-//        else {
 //
-//        }
-
-
-        return errorList.get(error_number).getText();
-//        System.out.println(allerrorslist);
-
-
-    }
+////        String allerrorslist = "";
+////        for (int a = 0; a < errorList.size(); a++){
+////            System.out.println(errorList.get(a).getText());
+////            result = result.concat("|||||").concat(errorList.get(a).getText());
+////        }
+////        if (errorList.size() > 0) {
+////
+////        }
+////        else {
+////        }
+//        return errorList.get(error_number).getText();
+////        System.out.println(allerrorslist);
+ //   }
 
     public WebElement IsElementAppear(String elementID) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
