@@ -16,74 +16,99 @@ public class Common {
     private String browserName;
     private String browserVersion;
 
-    public Common (ChromeDriver driver)
-    {
+    public Common(ChromeDriver driver) {
         this.driver = driver;
     }
 
     public void setUp(ChromeDriver driver) throws Exception {
 
 
-            //  ChromeOptions options = new ChromeOptions();
-            //driver = new ChromeDriver(options);
-            //driver.get("http://localhost:3000");
-            System.setProperty("webdriver.chrome.driver","C:\\chromedriver\\chromedriver.exe");
-            driver = new ChromeDriver();
-            browserName = "Chrome";
-            browserVersion = "46";
-            System.out.println("Automated test run. We’re running on "+browserName+" "+browserVersion);
-            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe");
+        driver = new ChromeDriver();
+        browserName = "Chrome";
+        browserVersion = "46";
+        System.out.println("Automated test run. We’re running on " + browserName + " " + browserVersion);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
+    }
+
+    public void CloseNotification() {
+        if (driver.findElement(By.className("notification notification-success notification-visible")).isEnabled()) {
+            driver.findElement(By.className("notification-dismiss")).click();
         }
+    }
 
-                         //Ждать до отображения элемента по ID
+    //Ждать до отображения элемента по ID
     public WebElement WaitingForID(String elementID) {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         WebElement WaitingForID = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(elementID)));
         return WaitingForID;
     }
+
     //Ждать, когда элемент станет "кликабельным"
     public WebElement IsElementClickable(String elementID) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement IsElementClickable = wait.until(ExpectedConditions.elementToBeClickable(By.id(elementID)));
-    return IsElementClickable;}
+        return IsElementClickable;
+    }
+
     //Ждать, когда отобразиться элемент
     public WebElement IsElementVisible(String elementID) {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement IsElementVisible = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id(elementID))));
-    return IsElementVisible;}
+        return IsElementVisible;
+    }
+
     //Наличие класса
     public WebElement WaitingForClass(String elementsClass) {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         WebElement WaitingForClass = wait.until(ExpectedConditions.presenceOfElementLocated(By.className(elementsClass)));
         return WaitingForClass;
     }
+
     //Вынуть числа
     public Matcher GetNumbersFromText(String elementID) {
-    String MissionTitle = driver.findElement(By.id(elementID)).getText();
-    Pattern pat= Pattern.compile("[-]?[0-9]+(.[0-9]+)?");
-    Matcher matcher=pat.matcher(MissionTitle);
-            while (matcher.find()) {
-                System.out.println(matcher.group());
-            }
-    return matcher;}
+        String MissionTitle = driver.findElement(By.id(elementID)).getText();
+        Pattern pat = Pattern.compile("[-]?[0-9]+(.[0-9]+)?");
+        Matcher matcher = pat.matcher(MissionTitle);
+        while (matcher.find()) {
+            System.out.println(matcher.group());
+        }
+        return matcher;
+    }
+
     //Лист всех текстов из каждого элемента класса "error"
-    public List<String> getAllErrorsTextListed() throws Exception{
-       List<WebElement> errorList = driver.findElements(By.className("error"));
+    public List<String> getAllErrorsTextListed() throws Exception {
+        List<WebElement> errorList = driver.findElements(By.className("error"));
 
 
         List<String> errorTextList = new ArrayList<>();
-        for (int i = 0; i<errorList.size(); i++)
+        for (int i = 0; i < errorList.size(); i++)
             errorTextList.add(errorList.get(i).getText());
         return errorTextList;
     }
+
     //Строку в номер
-    public String StringToNumber(String missionNT){
-        String str=missionNT;
-        String numberOnly= str.replaceAll("[^0-9]", "");
+    public String StringToNumber(String missionNT) {
+        String str = missionNT;
+        String numberOnly = str.replaceAll("[^0-9]", "");
         return numberOnly;
     }
 
+    //deal with a list of elements
+//    public void ClickOnTheCheckbox(String ElementType) {
+//
+//
+//        WebElement someElement = driver.findElement(By.cssSelector("input"));
+//        String typeOfElement = someElement.getAttribute("type");
+//        //Пробегаемся и выбираем то, что нужно
+//        List<WebElement> someElements = driver.findElements(By.cssSelector("input"));
+//        for (WebElement anElement : someElements) {
+//            if (anElement.getAttribute("type").equals(ElementType)) {
+//             //то поисходть  ;
+//            }
+//        }
+//    }
 //    public String getAllErrorsList(int error_number) throws Exception{
 //       List<WebElement> errorList = driver.findElements(By.className("error"));
 //
@@ -100,13 +125,14 @@ public class Common {
 ////        }
 //        return errorList.get(error_number).getText();
 ////        System.out.println(allerrorslist);
- //   }
+    //   }
 
     public WebElement IsElementAppear(String elementID) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement IsElementAppear = wait.until(ExpectedConditions.elementToBeClickable(By.id(elementID)));
         return IsElementAppear;
     }
+
 
 }
 
