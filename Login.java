@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Login {
     private ChromeDriver driver;
+
     public void User(ChromeDriver driver, String login, String password) throws Exception {
         driver.get("https://ets.mos.ru/ets-stage2/#/login");
         driver.findElement(By.id("login")).click();
@@ -14,6 +15,6 @@ public class Login {
         driver.findElement(By.id("password")).click();
         driver.findElement(By.id("password")).sendKeys(password);
         Common PresenceOfID = new Common(driver);
- PresenceOfID.WaitingForID("submit").click();
+        PresenceOfID.WaitingForID("submit").click();
     }
 }

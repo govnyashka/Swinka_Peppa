@@ -59,6 +59,7 @@ public class CreateWaybill {
         //Задание - Технологическая операция
         Thread.sleep(2000);
         PresenceOfID.WaitingForID("react-select-35--value").click();
+        PresenceOfID.WaitingForID("react-select-35--value").click();
         PresenceOfID.WaitingForID("79").click();
 
 
@@ -164,11 +165,19 @@ public class CreateWaybill {
         driver.findElement(By.xpath("(//input[@type='string'])[5]")).sendKeys("1");
         //Выбор водителя.
         PresenceOfID.WaitingForID("react-select-32--value").click();
+        PresenceOfID.WaitingForID("react-select-32--value").click();
         PresenceOfID.WaitingForID("56778").click();
         Common MissionNumber = new Common(driver);
         MissionNumber.GetNumbersFromText("react-select-33--value-0");
         //Получить "Выезд план."
         String planDepartureDate = driver.findElement(By.id("plan-departure-date_input")).getAttribute("value");
+        //Получить "Транспортное средство"
+
+
+
+        String carGovTitle = driver.findElement(By.id("car-gov-number")).getText();
+        String carGovNumber = carGovTitle.substring(0, 9);
+        System.out.println("Номер ТС: " +carGovNumber);
         //Нажатие кнопки сохранения ПЛ.
         //driver.findElement(By.id("waybill-submit")).click();
         //Нажатие кнопки Принта ПЛ.

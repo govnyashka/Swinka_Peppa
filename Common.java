@@ -40,7 +40,7 @@ public class Common {
 
     //Ждать до отображения элемента по ID
     public WebElement WaitingForID(String elementID) {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement WaitingForID = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(elementID)));
         return WaitingForID;
     }
@@ -52,16 +52,23 @@ public class Common {
         return IsElementClickable;
     }
 
+    public WebElement IsElementClickableByXpath(String putHereXpath) {
+        WebDriverWait wait = new WebDriverWait(driver, 90);
+        WebElement IsElementClickableByXpath = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(putHereXpath)));
+        return IsElementClickableByXpath;
+    }
+
+
     //Ждать, когда отобразиться элемент
     public WebElement IsElementVisible(String elementID) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement IsElementVisible = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id(elementID))));
         return IsElementVisible;
     }
 
     //Наличие класса
     public WebElement WaitingForClass(String elementsClass) {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement WaitingForClass = wait.until(ExpectedConditions.presenceOfElementLocated(By.className(elementsClass)));
         return WaitingForClass;
     }
@@ -95,6 +102,12 @@ public class Common {
         return numberOnly;
     }
 
+    //Строку в номер
+    public String GetCharsFromString(String elementID, int min, int max) {
+    String getSomeText = driver.findElement(By.id(elementID)).getText();
+    String getFewChars = getSomeText.substring(min, max);
+    System.out.println("Из строки " + getSomeText + "получено:" +getFewChars);
+    return getFewChars;}
     //deal with a list of elements
 //    public void ClickOnTheCheckbox(String ElementType) {
 //
@@ -105,7 +118,7 @@ public class Common {
 //        List<WebElement> someElements = driver.findElements(By.cssSelector("input"));
 //        for (WebElement anElement : someElements) {
 //            if (anElement.getAttribute("type").equals(ElementType)) {
-//             //то поисходть  ;
+//             //то поисходт  ;
 //            }
 //        }
 //    }

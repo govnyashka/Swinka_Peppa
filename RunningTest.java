@@ -25,22 +25,24 @@ public class RunningTest {
     @Test
     public void WaybillCD() throws Exception {
         Login Enter = new Login();
-        Enter.User(driver, "454пупук345", "3пкуп434");
+        Enter.User(driver, "втиавт", "уеркурику");
         CreateWaybill FromJournal = new CreateWaybill();
         String CreateWaybillDate;
 
         CreateWaybillDate = FromJournal.CreateWaybill(driver);
         Filter LookingForWaybill = new Filter();
         LookingForWaybill.ByPlanDepartureDate(driver, CreateWaybillDate);
-Delete AfterCreation = new Delete();
-AfterCreation.DeleteWaybill(driver);
+        CreateAdditionalMission OneMoreMission = new CreateAdditionalMission();
+        OneMoreMission.AddMission1(driver);
+//        Delete AfterCreation = new Delete();
+//        AfterCreation.DeleteWaybill(driver);
     }
 
 
-    @AfterClass(alwaysRun = true)
-    public void tearDown() throws Exception {
-        driver.quit();
-    }
+//    @AfterClass(alwaysRun = true)
+//    public void tearDown() throws Exception {
+//        driver.quit();
+//    }
 
 }
 
