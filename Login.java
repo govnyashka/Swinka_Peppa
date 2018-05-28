@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 /**
  * Created by User on 14.05.2018.
@@ -15,6 +16,6 @@ public class Login {
         driver.findElement(By.id("password")).click();
         driver.findElement(By.id("password")).sendKeys(password);
         Common PresenceOfID = new Common(driver);
-        PresenceOfID.WaitingForID("submit").click();
+        PresenceOfID.waitingForID("submit").click();
     }
 }

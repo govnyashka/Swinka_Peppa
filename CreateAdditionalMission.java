@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,7 +13,8 @@ import java.util.List;
  */
 public class CreateAdditionalMission {
     private ChromeDriver driver;
-    public void AddMission1 (ChromeDriver driver) throws Exception {
+
+    public void AddMission1(ChromeDriver driver) throws Exception {
         Common PresenceOfID = new Common(driver);
         Common WaitingForClick = new Common(driver);
         Common WaitingForVisibility = new Common(driver);
@@ -21,24 +23,24 @@ public class CreateAdditionalMission {
         Date oneHourAhead = cal.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         String waybillsPlannedStartDate = sdf.format(oneHourAhead);
-Common WaitingForClickByXpath = new Common(driver);
+        Common WaitingForClickByXpath = new Common(driver);
 
-        Thread.sleep(20000);
+        Thread.sleep(1000);
+
+
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("window.scrollBy(0,450)", "");
         //Хватает первый элемент
-//        WebElement elementOpenUpdateForm = WaitingForClickByXpath.IsElementClickableByXpath("//*[@id=\"container\"]/div/div[2]/div[1]/div[1]/div[2]/div/div/div/div/table/tbody[1]/tr/td[1]/div/input");
-//        WebElement elementOpenUpdateForm = WaitingForClickByXpath.IsElementClickableByXpath("//*[@id=\"container\"]/div/div[2]/div[1]/div[1]/div[2]/div/div/div/div/table/tbody[1]/tr/td[1]/div/input");
-//        if (elementOpenUpdateForm.isEnabled()) elementOpenUpdateForm.click();
-        driver.findElement(By.xpath("//*[@id=\"container\"]/div/div[2]/div[1]/div[1]/div[2]/div/div/div/div/table/tbody[1]/tr/td[1]/div/input")).click();
+        PresenceOfID.waitingForID("checkbox-id").click();
         //Форма "Активный путевой лист"
-        driver.findElement(By.id("open-update-form")).click();
 
-        PresenceOfID.WaitingForID("create-mission").click();
+        PresenceOfID.waitingForID("open-update-form").click();
+
+        PresenceOfID.waitingForID("create-mission").click();
         //Задание - Технологическая операция
         Thread.sleep(5000);
-
-        PresenceOfID.WaitingForID(" technical-operation-id").click();
-        //PresenceOfID.WaitingForID("react-select-35--value").click();
-        PresenceOfID.WaitingForID("103").click();
+        PresenceOfID.waitingForID("react-select-50--value").click();
+        PresenceOfID.waitingForID("103").click();
 
 
         // //Наличие текста: "Дата не должна выходить за пределы путевого листа"
@@ -47,43 +49,41 @@ Common WaitingForClickByXpath = new Common(driver);
         System.out.println(allErrors);
         Thread.sleep(2000);
         if (!allErrors.contains(" Дата не должна выходить за пределы путевого листа")) {
-            PresenceOfID.WaitingForID("date-start_input").click();
+            PresenceOfID.waitingForID("date-start_input").click();
             Thread.sleep(500);
-            //driver.findElement(By.id("date_end_input")).click();
-            PresenceOfID.WaitingForID("date-start_input").clear();
-            PresenceOfID.WaitingForID("date-start_input").sendKeys(waybillsPlannedStartDate);
+            PresenceOfID.waitingForID("date-start_input").clear();
+            PresenceOfID.waitingForID("date-start_input").sendKeys(waybillsPlannedStartDate);
         } else
             System.out.println(waybillsPlannedStartDate);
+
         //Задание - Элемент
 
-        WaitingForClick.IsElementClickable("react-select-37--value").click();
-        driver.findElement(By.id("react-select-37--value")).click();
+        WaitingForClick.isElementClickable("react-select-52--value").click();
+        driver.findElement(By.id("react-select-52--value")).click();
 
-        WaitingForVisibility.IsElementVisible("1").click();
+        WaitingForVisibility.isElementVisible("1").click();
 
         //Создание маршрута
         Thread.sleep(2000);
-        PresenceOfID.WaitingForID("create-route").click();
+        PresenceOfID.waitingForID("create-route").click();
         //Название маршрута
         Thread.sleep(2000);
-        PresenceOfID.WaitingForID("route-name").click();
-        PresenceOfID.WaitingForID("route-name").sendKeys("Маршрут №1");
+        PresenceOfID.waitingForID("route-name").click();
+        PresenceOfID.waitingForID("route-name").sendKeys("Маршрут №1");
         //Список выбранных ОДХ
-        PresenceOfID.WaitingForID("react-select-45--value").click();
-        PresenceOfID.WaitingForID("347466").click();
-        PresenceOfID.WaitingForID("react-select-45--value").click();
-        PresenceOfID.WaitingForID("634121").click();
+        PresenceOfID.waitingForID("react-select-60--value").click();
+        PresenceOfID.waitingForID("10003261").click();
         //Нажатие кнопки "Создать".
-        PresenceOfID.WaitingForID("route-submit").click();
-        //Отображается уведомление: "Данные успешно сохранены". - необходимо навешать айдишник на уведомление. Есть только текст и класс
-        //Наличие текста: "Время выполнения задания для ОДХ должно составлять не более 5 часов"
+        PresenceOfID.waitingForID("route-submit").click();
+        //Отображается уведомление: "Данные успешно сохранены".
 
+        //Наличие текста: "Время выполнения задания для ОДХ должно составлять не более 5 часов"
         Common LessThan5hours = new Common(driver);
         List<String> allErrors1 = LessThan5hours.getAllErrorsTextListed();
         Thread.sleep(2000);
         if (!allErrors.contains("Время выполнения задания для ОДХ должно составлять не более 5 часов")) {
-            PresenceOfID.WaitingForID("date_end_input").click();
-            PresenceOfID.WaitingForID("date_end_input").clear();
+            PresenceOfID.waitingForID("date_end_input").click();
+            PresenceOfID.waitingForID("date_end_input").clear();
             if (!driver.findElement(By.id("date_end_input")).getAttribute("value").isEmpty()) ;
             String dateStartInput = driver.findElement(By.id("date-start_input")).getAttribute("value");
             if (dateStartInput.isEmpty())
@@ -99,7 +99,10 @@ Common WaitingForClickByXpath = new Common(driver);
             } catch (Exception e) {
                 System.out.println("Не увижу этот текст");
             }
-            PresenceOfID.WaitingForID("date_end_input").sendKeys(dateStartInput);
-            PresenceOfID.WaitingForID("m-submit").click();
+            PresenceOfID.waitingForID("date_end_input").sendKeys(dateStartInput);
+            PresenceOfID.waitingForID("m-submit").click();
+            PresenceOfID.waitingForID("waybill-submit").click();
+
+        }
     }
-}}
+}

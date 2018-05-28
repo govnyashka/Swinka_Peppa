@@ -4,8 +4,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -32,27 +34,30 @@ public class Common {
 
     }
 
-    public void CloseNotification() {
-        if (driver.findElement(By.className("notification notification-success notification-visible")).isEnabled()) {
+    public void closeNotification(String notificationsClass) {
+        if (driver.findElement(By.className(notificationsClass)).isDisplayed()) {
             driver.findElement(By.className("notification-dismiss")).click();
         }
     }
 
     //Ждать до отображения элемента по ID
-    public WebElement WaitingForID(String elementID) {
+    public WebElement waitingForID(String elementID) {
         WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement WaitingForID = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(elementID)));
+        assert driver.findElementById(elementID).isDisplayed();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElementById(elementID)).perform();
         return WaitingForID;
     }
 
     //Ждать, когда элемент станет "кликабельным"
-    public WebElement IsElementClickable(String elementID) {
+    public WebElement isElementClickable(String elementID) {
         WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement IsElementClickable = wait.until(ExpectedConditions.elementToBeClickable(By.id(elementID)));
         return IsElementClickable;
     }
 
-    public WebElement IsElementClickableByXpath(String putHereXpath) {
+    public WebElement isElementClickableByXpath(String putHereXpath) {
         WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement IsElementClickableByXpath = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(putHereXpath)));
         return IsElementClickableByXpath;
@@ -60,21 +65,21 @@ public class Common {
 
 
     //Ждать, когда отобразиться элемент
-    public WebElement IsElementVisible(String elementID) {
+    public WebElement isElementVisible(String elementID) {
         WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement IsElementVisible = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id(elementID))));
         return IsElementVisible;
     }
 
     //Наличие класса
-    public WebElement WaitingForClass(String elementsClass) {
+    public WebElement waitingForClass(String elementsClass) {
         WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement WaitingForClass = wait.until(ExpectedConditions.presenceOfElementLocated(By.className(elementsClass)));
         return WaitingForClass;
     }
 
     //Вынуть числа
-    public Matcher GetNumbersFromText(String elementID) {
+    public Matcher getNumbersFromText(String elementID) {
         String MissionTitle = driver.findElement(By.id(elementID)).getText();
         Pattern pat = Pattern.compile("[-]?[0-9]+(.[0-9]+)?");
         Matcher matcher = pat.matcher(MissionTitle);
@@ -96,18 +101,26 @@ public class Common {
     }
 
     //Строку в номер
-    public String StringToNumber(String missionNT) {
+    public String stringToNumber(String missionNT) {
         String str = missionNT;
         String numberOnly = str.replaceAll("[^0-9]", "");
         return numberOnly;
     }
 
+    //Получить рег.номер ТС.
+    public String getCarsNumber(String elementID) {
+        String carGovTitle = driver.findElement(By.id("react-select-30--value-item")).getText();
+        String carGovNumber = carGovTitle.substring(0, 9);
+        return carGovNumber;
+    }
+
     //Строку в номер
-    public String GetCharsFromString(String elementID, int min, int max) {
-    String getSomeText = driver.findElement(By.id(elementID)).getText();
-    String getFewChars = getSomeText.substring(min, max);
-    System.out.println("Из строки " + getSomeText + "получено:" +getFewChars);
-    return getFewChars;}
+    public String getCharsFromString(String elementID, int min, int max) {
+        String getSomeText = driver.findElement(By.id(elementID)).getText();
+        String getFewChars = getSomeText.substring(min, max);
+        System.out.println("Из строки " + getSomeText + "получено:" + getFewChars);
+        return getFewChars;
+    }
     //deal with a list of elements
 //    public void ClickOnTheCheckbox(String ElementType) {
 //
@@ -140,13 +153,20 @@ public class Common {
 ////        System.out.println(allerrorslist);
     //   }
 
-    public WebElement IsElementAppear(String elementID) {
+    public WebElement isElementAppear(String elementID) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement IsElementAppear = wait.until(ExpectedConditions.elementToBeClickable(By.id(elementID)));
         return IsElementAppear;
     }
 
+//The below code will wait until the overlay disppears
 
+    public void waitUntilTheOverlayDisppears(String elementID) {
+        By loadingImage = By.id(elementID);//loading image ID
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loadingImage));
+        return;
+    }
 }
 
 

@@ -1,9 +1,7 @@
 import java.util.concurrent.TimeUnit;
-
 import org.testng.annotations.*;
-
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class RunningTest {
 
@@ -19,13 +17,25 @@ public class RunningTest {
         browserVersion = "46";
         System.out.println("Automated test run. We’re running on " + browserName + " " + browserVersion);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+//        File file = new File("C:/Selenium/iexploredriver.exe");
+//        System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
+//        WebDriver driver = new InternetExplorerDriver();
+//
+//        System.setProperty("webdriver.chrome.driver", "C:\\eidriver\\IEDriverServer.exe");
+//        driver = new InternetExplorerDriver();
+//        browserName = "IEDriver";
+//        browserVersion = "9";
+//        System.out.println("Automated test run. We’re running on " + browserName + " " + browserVersion);
+//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
 
     @Test
+    @Parameters
     public void WaybillCD() throws Exception {
         Login Enter = new Login();
-        Enter.User(driver, "втиавт", "уеркурику");
+        Enter.User(driver, "3fe4wg332", "gf32grg42f-we");
         CreateWaybill FromJournal = new CreateWaybill();
         String CreateWaybillDate;
 
