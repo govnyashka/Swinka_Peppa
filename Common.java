@@ -44,7 +44,9 @@ public class Common {
     public WebElement waitingForID(String elementID) {
         WebDriverWait wait = new WebDriverWait(driver, 90);
         WebElement WaitingForID = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(elementID)));
-        assert driver.findElementById(elementID).isDisplayed();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(elementID))).equals(elementID);
+
+                driver.findElementById(elementID).isDisplayed();
         Actions actions = new Actions(driver);
         actions.moveToElement(driver.findElementById(elementID)).perform();
         return WaitingForID;
@@ -109,8 +111,9 @@ public class Common {
 
     //Получить рег.номер ТС.
     public String getCarsNumber(String elementID) {
-        String carGovTitle = driver.findElement(By.id("react-select-30--value-item")).getText();
+        String carGovTitle = driver.findElement(By.id(elementID)).getText();
         String carGovNumber = carGovTitle.substring(0, 9);
+        System.out.println("Номер ТС: " + carGovNumber);
         return carGovNumber;
     }
 
@@ -167,6 +170,15 @@ public class Common {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loadingImage));
         return;
     }
+//
+//    public static String getCarNum(){
+//        //Получить "Транспортное средство"
+//        ChromeDriver driver = new ChromeDriver();
+//        Common getCreatedCarID = new Common(driver);
+//        String carNumber = getCreatedCarID.getCarsNumber("react-select-30--value-item");
+//
+//        return carNumber;
+//    }
 }
 
 

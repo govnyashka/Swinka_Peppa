@@ -16,9 +16,9 @@ public class RunningTest {
         browserName = "Chrome";
         browserVersion = "46";
         System.out.println("Automated test run. We’re running on " + browserName + " " + browserVersion);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
 
-//        File file = new File("C:/Selenium/iexploredriver.exe");
+//        File file = new File("C:/eidriver/IEDriverServer.exe");
 //        System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
 //        WebDriver driver = new InternetExplorerDriver();
 //
@@ -35,15 +35,26 @@ public class RunningTest {
     @Parameters
     public void WaybillCD() throws Exception {
         Login Enter = new Login();
-        Enter.User(driver, "3fe4wg332", "gf32grg42f-we");
+        Enter.User(driver, "erregvrsthg4w4", "hw45hwh5");
         CreateWaybill FromJournal = new CreateWaybill();
-        String CreateWaybillDate;
+        String createWaybillDate;
 
-        CreateWaybillDate = FromJournal.CreateWaybill(driver);
-        Filter LookingForWaybill = new Filter();
-        LookingForWaybill.ByPlanDepartureDate(driver, CreateWaybillDate);
+        String currentTMP = FromJournal.tmp;
+        FromJournal.tmp = null;
+
+        createWaybillDate = FromJournal.CreateWaybill(driver);
+        //Фильтр по "Выезд план"
+        Filter lookingForWaybill = new Filter();
+        lookingForWaybill.ByPlanDepartureDate(driver, createWaybillDate);
+
+//        Filter lookingForCarNumber = new Filter();
+//        lookingForCarNumber.ByCarNumber(driver, currentTMP);
+
         CreateAdditionalMission OneMoreMission = new CreateAdditionalMission();
         OneMoreMission.AddMission1(driver);
+
+        DeleteAdditionalMission deleteOneMoreMission = new DeleteAdditionalMission();
+        deleteOneMoreMission.deleteMission1(driver);
 //        Delete AfterCreation = new Delete();
 //        AfterCreation.DeleteWaybill(driver);
     }

@@ -11,15 +11,14 @@ import java.util.List;
  * Created by User on 14.05.2018.
  */
 public class CreateWaybill {
-    private ChromeDriver driver;
-    private String browserName;
-    private String browserVersion;
+
+    public String tmp = null;
 
     public String CreateWaybill(ChromeDriver driver) throws Exception {
         Common waitingForClick = new Common(driver);
         Common waitingForVisibility = new Common(driver);
         Common presenceOfID = new Common(driver);
-        Common getCreatedCarID = new Common(driver);
+
 
         Thread.sleep(2000);
         presenceOfID.waitingForID("link-waybill-journal");
@@ -164,9 +163,10 @@ public class CreateWaybill {
         MissionNumber.getNumbersFromText("react-select-33--value-0");
         //Получить "Выезд план."
         String planDepartureDate = driver.findElement(By.id("plan-departure-date_input")).getAttribute("value");
-        getCreatedCarID.getCarsNumber("react-select-30--value-item");
+
         //Получить "Транспортное средство"
-        System.out.println("Номер ТС: " + getCreatedCarID.getCarsNumber("react-select-30--value-item"));
+        Common carFromWaybill = new Common(driver);
+        tmp = carFromWaybill.getCarsNumber("react-select-30--value-item");
         //Нажатие кнопки Выдачи ПЛ.
         //Выгрузка "Форма 2 (грузовое ТС)"
         presenceOfID.waitingForID("waybill-print-dropdown_save").click();
@@ -176,4 +176,6 @@ public class CreateWaybill {
 
         return planDepartureDate;
     }
+
+
 }
