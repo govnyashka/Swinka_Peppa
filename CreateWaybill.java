@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
@@ -36,26 +37,32 @@ public class CreateWaybill {
         //Сопровождающий
         presenceOfID.waitingForID("accompanying-person-id").click();
         presenceOfID.waitingForID("react-select-28--value").click();
-        presenceOfID.waitingForID("1553").click();
+        presenceOfID.waitingForID("1973").click();
         //Режим работы
         presenceOfID.waitingForID("react-select-29--value").click();
         presenceOfID.waitingForID("1").click();
         //Транспортное средство (поиск по рег. номер ТС)
         Thread.sleep(2000);
         presenceOfID.waitingForID("react-select-30--value").click();
-        presenceOfID.waitingForID("19926").click();
+        presenceOfID.waitingForID("158610").click();
         waitingForClick.isElementClickable("react-select-30--value-item");
         //Прицеп
         Thread.sleep(900);
         presenceOfID.waitingForID("react-select-31--value").click();
-        presenceOfID.waitingForID("91411").click();
+
+        if (presenceOfID.waitingForID("90866").isDisplayed()) {
+            presenceOfID.waitingForID("90866").click();
+        }
+        else
+            System.out.println("Прицеп не найден");
+
         //Создание задания
         presenceOfID.waitingForID("create-mission").click();
         //Задание - Технологическая операция
-        Thread.sleep(2000);
+       Thread.sleep(800);
         presenceOfID.waitingForID("react-select-35--value").click();
         presenceOfID.waitingForID("react-select-35--value").click();
-        presenceOfID.waitingForID("79").click();
+        presenceOfID.waitingForID("99").click();
 
 
         // //Наличие текста: "Дата не должна выходить за пределы путевого листа"
@@ -76,7 +83,7 @@ public class CreateWaybill {
         waitingForClick.isElementClickable("react-select-37--value").click();
         driver.findElement(By.id("react-select-37--value")).click();
 
-        waitingForVisibility.isElementVisible("19").click();
+        waitingForVisibility.isElementVisible("2").click();
 
         //Создание маршрута
         Thread.sleep(2000);
@@ -85,12 +92,12 @@ public class CreateWaybill {
         Thread.sleep(2000);
         waitingForClick.isElementClickable("route-name");
         presenceOfID.waitingForID("route-name").click();
-        presenceOfID.waitingForID("route-name").sendKeys("23");
+        presenceOfID.waitingForID("route-name").sendKeys("Маршрут №1");
         //Список выбранных ОДХ
         presenceOfID.waitingForID("react-select-45--value").click();
-        presenceOfID.waitingForID("347466").click();
+        presenceOfID.waitingForID("10003565").click();
         presenceOfID.waitingForID("react-select-45--value").click();
-        presenceOfID.waitingForID("634121").click();
+        presenceOfID.waitingForID("10003294").click();
         //Нажатие кнопки "Создать".
         presenceOfID.waitingForID("route-submit").click();
         //Отображается уведомление: "Данные успешно сохранены". - необходимо навешать айдишник на уведомление. Есть только текст и класс
@@ -158,7 +165,7 @@ public class CreateWaybill {
         //Выбор водителя.
         presenceOfID.waitingForID("react-select-32--value").click();
         presenceOfID.waitingForID("react-select-32--value").click();
-        presenceOfID.waitingForID("56778").click();
+        presenceOfID.waitingForID("52328").click();
         Common MissionNumber = new Common(driver);
         MissionNumber.getNumbersFromText("react-select-33--value-0");
         //Получить "Выезд план."

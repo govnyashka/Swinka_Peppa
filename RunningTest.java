@@ -1,7 +1,33 @@
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+
+import org.openqa.selenium.logging.*;
 import org.testng.annotations.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.Logs;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.*;
+
 
 public class RunningTest {
 
@@ -17,6 +43,12 @@ public class RunningTest {
         browserVersion = "46";
         System.out.println("Automated test run. We’re running on " + browserName + " " + browserVersion);
         driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+
+        DesiredCapabilities caps = DesiredCapabilities.chrome();
+        LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.BROWSER, Level.ALL);
+        caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+        //driver = new ChromeDriver(caps);
 
 //        File file = new File("C:/eidriver/IEDriverServer.exe");
 //        System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
@@ -35,7 +67,7 @@ public class RunningTest {
     @Parameters
     public void WaybillCD() throws Exception {
         Login Enter = new Login();
-        Enter.User(driver, "erregvrsthg4w4", "hw45hwh5");
+        Enter.User(driver, "flef888f6w", "00000000008");
         CreateWaybill FromJournal = new CreateWaybill();
         String createWaybillDate;
 
@@ -46,25 +78,43 @@ public class RunningTest {
         //Фильтр по "Выезд план"
         Filter lookingForWaybill = new Filter();
         lookingForWaybill.ByPlanDepartureDate(driver, createWaybillDate);
-
+        analyzeLog();
 //        Filter lookingForCarNumber = new Filter();
 //        lookingForCarNumber.ByCarNumber(driver, currentTMP);
 
-        CreateAdditionalMission OneMoreMission = new CreateAdditionalMission();
-        OneMoreMission.AddMission1(driver);
-
+        CreateAdditionalMission oneMoreMission = new CreateAdditionalMission();
+        oneMoreMission.AddMission1(driver);
+        analyzeLog();
         DeleteAdditionalMission deleteOneMoreMission = new DeleteAdditionalMission();
         deleteOneMoreMission.deleteMission1(driver);
+        analyzeLog();
 //        Delete AfterCreation = new Delete();
 //        AfterCreation.DeleteWaybill(driver);
+        analyzeLog();
     }
 
 
-//    @AfterClass(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
 //    public void tearDown() throws Exception {
-//        driver.quit();
-//    }
+//        driver.quit();}
+    public void analyzeLog() {
+        LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
+        for (LogEntry entry : logEntries) {
+            System.out.println(new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage());
 
+            for (LogEntry logEntry : logEntries) {
+                System.out.println("Находимся в " + "добавить переменную названия форм");
+                System.out.println("__________________________________________________________");
+                if (logEntry.getMessage().toLowerCase().contains("error")) {
+                    System.out.println("ОШИБКА:" + logEntry.getMessage());
+                } else if (logEntry.getMessage().toLowerCase().contains("warning")) {
+                    System.out.println("Warning:" + logEntry.getMessage());
+                } else {
+                    System.out.println("Инфо:" + logEntry.getMessage());
+                }
+            }
+        }
+    }
 }
 
 

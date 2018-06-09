@@ -12,7 +12,7 @@ import java.util.List;
  * Created by User on 16.05.2018.
  */
 public class CreateAdditionalMission {
-    private ChromeDriver driver;
+  //  private ChromeDriver driver;
 
     public void AddMission1(ChromeDriver driver) throws Exception {
         Common PresenceOfID = new Common(driver);
@@ -40,7 +40,7 @@ public class CreateAdditionalMission {
         //Задание - Технологическая операция
         Thread.sleep(5000);
         PresenceOfID.waitingForID("react-select-50--value").click();
-        PresenceOfID.waitingForID("103").click();
+        PresenceOfID.waitingForID("100").click();
 
 
         // //Наличие текста: "Дата не должна выходить за пределы путевого листа"
@@ -61,7 +61,7 @@ public class CreateAdditionalMission {
         WaitingForClick.isElementClickable("react-select-52--value").click();
         driver.findElement(By.id("react-select-52--value")).click();
 
-        WaitingForVisibility.isElementVisible("1").click();
+        WaitingForVisibility.isElementVisible("101").click();
 
         //Создание маршрута
         Thread.sleep(2000);
@@ -69,10 +69,10 @@ public class CreateAdditionalMission {
         //Название маршрута
         Thread.sleep(2000);
         PresenceOfID.waitingForID("route-name").click();
-        PresenceOfID.waitingForID("route-name").sendKeys("Маршрут №1");
+        PresenceOfID.waitingForID("route-name").sendKeys("Маршрут №2");
         //Список выбранных ОДХ
         PresenceOfID.waitingForID("react-select-60--value").click();
-        PresenceOfID.waitingForID("10003261").click();
+        PresenceOfID.waitingForID("462688").click();
         //Нажатие кнопки "Создать".
         PresenceOfID.waitingForID("route-submit").click();
         //Отображается уведомление: "Данные успешно сохранены".
